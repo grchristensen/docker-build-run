@@ -1,0 +1,19 @@
+name: 'Docker Build Run'
+description: 'Build and run a docker container'
+inputs:
+  target:
+    description: 'The target stage for a multi-stage dockerfile'
+    required: true
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - name: Build container
+      uses: docker/build-push-action@v2
+      with:
+        tags: app-${{ inputs.target }}
+        target: ${{ inputs.target }}
+        load: true
+        push: false
+    - name: Run container
+      run: docker run app-${{ inputs.target }}
