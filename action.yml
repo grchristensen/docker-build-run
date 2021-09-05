@@ -16,4 +16,5 @@ runs:
         load: true
         push: false
     - name: Run container
+      shell: bash
       run: docker run app-${{ inputs.target }}
